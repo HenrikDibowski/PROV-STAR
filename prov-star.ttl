@@ -1,0 +1,46 @@
+@prefix owl: <http://www.w3.org/2002/07/owl#> .
+@prefix prov: <http://www.w3.org/ns/prov#> .
+@prefix provs: <http://www.bosch.com/semantics/prov-star#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+<http://www.bosch.com/semantics/prov-star>
+  a owl:Ontology ;
+  owl:imports <http://www.w3.org/ns/prov-o#> ;
+  owl:versionInfo "Version 1.0. Created by Henrik Dibowski" ;
+.
+provs:Query
+  a owl:Class ;
+  rdfs:label "Query" ;
+  rdfs:subClassOf prov:Entity ;
+.
+provs:TripleChangeSet
+  a owl:Class ;
+  rdfs:comment "The set of triples changed during some graph update operation will be captured by the two subclasses of TripleChangeSet" ;
+  rdfs:label "Triple Change Set" ;
+  rdfs:subClassOf prov:Entity ;
+.
+provs:TripleGenerationSet
+  a owl:Class ;
+  rdfs:comment "Represents a set of triples created during some graph update operation. They will refer to the same TripleGenerationSet via statement-level annotations (RDF*)." ;
+  rdfs:label "Triple Generation Set" ;
+  rdfs:subClassOf provs:TripleChangeSet ;
+.
+provs:TripleInvalidationSet
+  a owl:Class ;
+  rdfs:comment "Represents a set of triples deleted during some graph update operation. They will refer to the same TripleInvalidationSet via statement-level annotations (RDF*)." ;
+  rdfs:label "Triple Invalidation Set" ;
+  rdfs:subClassOf provs:TripleChangeSet ;
+.
+provs:belongsTo
+  a owl:AnnotationProperty ;
+  rdfs:comment "for relating triples as quoted triples to TripleGenerationSet and TripleInvalidationSet instances (statement-level annotation using RDF*)" ;
+  rdfs:label "belongs to" ;
+  rdfs:range provs:TripleChangeSet ;
+.
+provs:queryString
+  a owl:DatatypeProperty ;
+  rdfs:domain provs:Query ;
+  rdfs:label "query string" ;
+  rdfs:range xsd:string ;
+.
